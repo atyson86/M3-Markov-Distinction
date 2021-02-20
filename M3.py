@@ -19,7 +19,7 @@ SHAPE_MATRIX = {
 
 }
 
-BORDER = 1200
+BORDER = 1000
 
 class MarkovArtist:
     def __init__(self, transition_color_matrix, transition_shape_matrix):
@@ -88,14 +88,16 @@ class MarkovArtist:
 
         return shapes_dict
 
-    def draw_masterpiece(self, shapes_dict):
+    def draw_masterpiece(self, shapes_dict, current_color='red'):
         win = GraphWin('Masterpiece', BORDER, BORDER)
-        win.setBackground("white")
-        total_shapes = 15
+        background_color = self.get_next_color(current_color)
+        win.setBackground(background_color)
 
         list_of_shapes = shapes_dict.get("shape")
         list_of_outline_colors = shapes_dict.get("outline_color")
         list_of_fill_colors = shapes_dict.get("fill_color")
+
+        total_shapes = len(list_of_shapes)
 
         for i in range(total_shapes):
             working_shape = list_of_shapes[i]
@@ -148,16 +150,9 @@ class MarkovArtist:
 def main():
     artist = MarkovArtist( COLOR_MATRIX, SHAPE_MATRIX)
 
-    dict_of_shapes = artist.make_shapes()
+    dict_of_shapes = artist.make_shapes(total_shapes=25)
 
     artist.draw_masterpiece(dict_of_shapes)
 
 if __name__ == "__main__":
     main()
-
-
-    
-
-
-    
-
