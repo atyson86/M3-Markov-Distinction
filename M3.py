@@ -63,6 +63,14 @@ class MarkovArtist:
 def main():
     win = GraphWin('Masterpiece', 500, 500)
 
+    pt = Point(100, 50)
+    cir = Circle(pt, 50)
+    cir.draw(win)
+
+    cir.setOutline("blue")
+    cir.setFill("cyan")
+    win.getMouse()
+    win.close()
 
 if __name__ == "__main__":
     main()
