@@ -19,7 +19,8 @@ SHAPE_MATRIX = {
 
 }
 
-BORDER = 1000
+BORDER1 = 1250
+BORDER2 = 850
 
 class MarkovArtist:
     def __init__(self, transition_color_matrix, transition_shape_matrix):
@@ -89,7 +90,7 @@ class MarkovArtist:
         return shapes_dict
 
     def draw_masterpiece(self, shapes_dict, current_color='red'):
-        win = GraphWin('Masterpiece', BORDER, BORDER)
+        win = GraphWin('Masterpiece', BORDER1, BORDER2)
         background_color = self.get_next_color(current_color)
         win.setBackground(background_color)
 
@@ -102,8 +103,8 @@ class MarkovArtist:
         for i in range(total_shapes):
             working_shape = list_of_shapes[i]
             if (working_shape == "Rectangle"):
-                pt1 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
-                pt2 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
+                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
                 rect = Rectangle(pt1, pt2)
 
                 rect.setOutline(list_of_outline_colors[i])
@@ -112,8 +113,8 @@ class MarkovArtist:
                 rect.draw(win)
 
             elif (working_shape == "Circle"):
-                pt1 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
-                radius = np.random.randint((BORDER - 1) / 2)
+                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                radius = np.random.randint((BORDER1 - 1) / 2)
                 circ = Circle(pt1, radius)
 
                 circ.setOutline(list_of_outline_colors[i])
@@ -122,8 +123,8 @@ class MarkovArtist:
                 circ.draw(win)
 
             elif (working_shape == "Oval"):
-                pt1 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
-                pt2 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
+                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
                 oval = Oval(pt1, pt2)
 
                 oval.setOutline(list_of_outline_colors[i])
@@ -132,9 +133,9 @@ class MarkovArtist:
                 oval.draw(win)
             
             elif (working_shape == "Triangle"):
-                pt1 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
-                pt2 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
-                pt3 = Point(np.random.randint(BORDER), np.random.randint(BORDER))
+                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt3 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
                 vertices = [pt1, pt2, pt3]
                 triangle = Polygon(vertices)
 
@@ -148,7 +149,7 @@ class MarkovArtist:
 
 
 def main():
-    artist = MarkovArtist( COLOR_MATRIX, SHAPE_MATRIX)
+    artist = MarkovArtist(COLOR_MATRIX, SHAPE_MATRIX)
 
     dict_of_shapes = artist.make_shapes(total_shapes=25)
 
