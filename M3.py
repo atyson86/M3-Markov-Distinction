@@ -119,6 +119,17 @@ class MarkovArtist:
         return shapes_dict
 
     def draw_masterpiece(self, shapes_dict, border1, border2, current_color='red'):
+        """Performs the act of drawing the Markov Masterpiece. 
+
+        Args:
+            shapes_dict (dict): a dictionary of shapes along with their outline
+                and fill colors
+            border1 (int): The width of the window that the masterpiece will be
+                drawn in
+            border2 (int): The height of the window that the masterpiece will
+                be drawn in
+            current_color (str): The current color to be used in the beginning. 
+        """
         win = GraphWin('Masterpiece', border1, border2)
         background_color = self.get_next_color(current_color)
         win.setBackground(background_color)
