@@ -193,8 +193,8 @@ def main():
     num_shapes = int(input("Choose number of shapes for masterpiece > "))
     print(line_break)
 
+    dict_of_shapes = artist.make_shapes(total_shapes=num_shapes)
 
-    print(dict_of_shapes)
 
     artist.draw_masterpiece(dict_of_shapes, border1, border2)
 
