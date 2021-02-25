@@ -38,13 +38,15 @@ COLOR_MATRIX = {
 
 SHAPE_MATRIX = {
     "Rectangle": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.30, \
-        "Triangle": 0.20},
-    "Circle": {"Rectangle": 0.15, "Circle": 0.30, "Oval": 0.40, \
-         "Triangle": 0.15},
+        "Triangle": 0.10, "Hexagon": 0.10},
+    "Circle": {"Rectangle": 0.15, "Circle": 0.10, "Oval": 0.40, \
+         "Triangle": 0.15, "Hexagon": 0.20},
     "Oval": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.25, \
-         "Triangle": 0.25},
-    "Triangle": {"Rectangle": 0.10, "Circle": 0.10, "Oval": 0.70, \
-         "Triangle": 0.10}
+         "Triangle": 0.20, "Hexagon": 0.05},
+    "Triangle": {"Rectangle": 0.10, "Circle": 0.10, "Oval": 0.60, \
+         "Triangle": 0.10, "Hexagon": 0.10},
+    "Hexagon": {"Rectangle": 0.20, "Circle": 0.10, "Oval": 0.20, \
+         "Triangle": 0.25, "Hexagon": 0.25}
 
 }
 
@@ -184,8 +186,38 @@ class MarkovArtist:
 
                 triangle.draw(win)
 
+            elif (working_shape == "Hexagon"):
+                pt1 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt2 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt3 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt4 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt5 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt6 = Point(np.random.randint(border1), np.random.randint(border2))
+                vertices = [pt1, pt2, pt3, pt4, pt5, pt6]
+                hexagon = Polygon(vertices)
+
+                hexagon.setOutline(list_of_outline_colors[i])
+                hexagon.setFill(list_of_fill_colors[i])
+
+                hexagon.draw(win)
+
         win.getMouse()
         win.close()
+
+    def validate(self, input_int):
+        """Used to validate inputs from the terminal
+
+        args:
+            input_int (str): The input directly from the terminal which is then 
+                converted into an int.
+        """
+        try:
+            val = type(int(input_int))
+            if val == int:
+                return True
+        except ValueError:
+            print("Not a valid input. Please enter a number!")
+            return False
 
 
 def main():
@@ -198,16 +230,28 @@ def main():
     print(welcome)
     print(line_break)
 
-    border1 = int(input("Choose a window width > "))
-    border2 = int(input("Choose a window height > "))
+    border1 = input("Choose a window width > ")
+    val1 = artist.validate(border1)
+    border2 = input("Choose a window height > ")
+    val2 = artist.validate(border2)
+    num_shapes = input("Choose number of shapes for masterpiece > ")
+    val3 = artist.validate(num_shapes)
 
-    num_shapes = int(input("Choose number of shapes for masterpiece > "))
-    print(line_break)
+    if ( val1 & \
+    val2 & val3 == True ):
 
-    dict_of_shapes = artist.make_shapes(total_shapes=num_shapes)
+        border1 = int(border1)
+        border2 = int(border2)
+        num_shapes = int(num_shapes)
+        
+        print(line_break)
 
+        dict_of_shapes = artist.make_shapes(total_shapes=num_shapes)
 
-    artist.draw_masterpiece(dict_of_shapes, border1, border2)
+        artist.draw_masterpiece(dict_of_shapes, border1, border2)
+    
+    else:
+        print("Ending program. Please run again with valid inputs.")
 
 if __name__ == "__main__":
     main()
