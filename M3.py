@@ -3,24 +3,50 @@ from graphics import *
 
 
 COLOR_MATRIX = {
-    "red": {"red": 0.10, "yellow": 0.30, "blue": 0.20, "green": 0.05, "cyan": 0.35},
-    "yellow": {"red": 0.20, "yellow": 0.10, "blue": 0.50, "green": 0.10, "cyan": 0.10},
-    "blue": {"red": 0.30, "yellow": 0.30, "blue": 0.10, "green": 0.20, "cyan": 0.10},
-    "green": {"red": 0.05, "yellow": 0.25, "blue": 0.40, "green": 0.05, "cyan": 0.25},
-    "cyan": {"red": 0.20, "yellow": 0.20, "blue": 0.20, "green": 0.20, "cyan": 0.20}
+    "red": {"red": 0.10, "yellow": 0.10, "blue": 0.10, "green": 0.10, \
+        "cyan": 0.10, "pink": 0.10, "orange": 0.10, "purple": 0.10, \
+             "black": 0.10, "white": 0.10},
+    "yellow": {"red": 0.15, "yellow": 0.10, "blue": 0.20, "green": 0.10, \
+         "cyan": 0.10, "pink": 0.10, "orange": 0.10, "purple": 0.05, \
+             "black": 0.05, "white": 0.05},
+    "blue": {"red": 0.10, "yellow": 0.10, "blue": 0.10, "green": 0.10, \
+        "cyan": 0.10, "pink": 0.15, "orange": 0.20, "purple": 0.05, \
+            "black": 0.05, "white": 0.05},
+    "green": {"red": 0.05, "yellow": 0.25, "blue": 0.10, "green": 0.05, \
+        "cyan": 0.25, "pink": 0.05, "orange": 0.05, "purple": 0.05, \
+            "black": 0.10, "white": 0.05},
+    "cyan": {"red": 0.20, "yellow": 0.05, "blue": 0.20, "green": 0.20, \
+        "cyan": 0.10, "pink": 0.05, "orange": 0.05, "purple": 0.05, \
+            "black": 0.05, "white": 0.05},
+    "pink": {"red": 0.05, "yellow": 0.05, "blue": 0.05, "green": 0.05, \
+        "cyan": 0.05, "pink": 0.05, "orange": 0.20, "purple": 0.05, \
+            "black": 0.15, "white": 0.30},
+    "orange": {"red": 0.10, "yellow": 0.05, "blue": 0.05, "green": 0.00, \
+        "cyan": 0.05, "pink": 0.25, "orange": 0.05, "purple": 0.10, \
+            "black": 0.30, "white": 0.05},
+    "purple": {"red": 0.10, "yellow": 0.10, "blue": 0.10, "green": 0.10, \
+        "cyan": 0.10, "pink": 0.10, "orange": 0.10, "purple": 0.10, \
+            "black": 0.10, "white": 0.10},
+    "black": {"red": 0.20, "yellow": 0.05, "blue": 0.10, "green": 0.05, \
+        "cyan": 0.00, "pink": 0.10, "orange": 0.20, "purple": 0.10, \
+            "black": 0.10, "white": 0.10},
+    "white": {"red": 0.05, "yellow": 0.05, "blue": 0.20, "green": 0.05, \
+        "cyan": 0.10, "pink": 0.05, "orange": 0.05, "purple": 0.20, \
+            "black": 0.20, "white": 0.05}
 
 }
 
 SHAPE_MATRIX = {
-    "Rectangle": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.30, "Triangle": 0.20},
-    "Circle": {"Rectangle": 0.15, "Circle": 0.30, "Oval": 0.40, "Triangle": 0.15},
-    "Oval": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.25, "Triangle": 0.25},
-    "Triangle": {"Rectangle": 0.10, "Circle": 0.10, "Oval": 0.70, "Triangle": 0.10}
+    "Rectangle": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.30, \
+        "Triangle": 0.20},
+    "Circle": {"Rectangle": 0.15, "Circle": 0.30, "Oval": 0.40, \
+         "Triangle": 0.15},
+    "Oval": {"Rectangle": 0.25, "Circle": 0.25, "Oval": 0.25, \
+         "Triangle": 0.25},
+    "Triangle": {"Rectangle": 0.10, "Circle": 0.10, "Oval": 0.70, \
+         "Triangle": 0.10}
 
 }
-
-BORDER1 = 1250
-BORDER2 = 850
 
 class MarkovArtist:
     def __init__(self, transition_color_matrix, transition_shape_matrix):
@@ -61,13 +87,16 @@ class MarkovArtist:
                 for next_shape in self.shapes]
         )
 
-    def make_shapes(self, current_shape='Rectangle', current_color='red', total_shapes=15):
-        """returns a dictionary that contains a series of different shapes with different outlines and fill colors
+    def make_shapes(self, current_shape='Rectangle', current_color='red', \
+        total_shapes=15):
+        """returns a dictionary that contains a series of different shapes
+            with different outlines and fill colors
 
         Args:
              current_shape (str): The current shape that has been recorded
              current_color (str): The current color used for the outline and fill
-             total_shapes (int): The total number of shapes that will be added to the dictionary
+             total_shapes (int): The total number of shapes that will be added to 
+                the dictionary
         """
 
         shapes_dict = {"shape": [], "outline_color": [], "fill_color": []}
@@ -89,8 +118,8 @@ class MarkovArtist:
 
         return shapes_dict
 
-    def draw_masterpiece(self, shapes_dict, current_color='red'):
-        win = GraphWin('Masterpiece', BORDER1, BORDER2)
+    def draw_masterpiece(self, shapes_dict, border1, border2, current_color='red'):
+        win = GraphWin('Masterpiece', border1, border2)
         background_color = self.get_next_color(current_color)
         win.setBackground(background_color)
 
@@ -103,8 +132,8 @@ class MarkovArtist:
         for i in range(total_shapes):
             working_shape = list_of_shapes[i]
             if (working_shape == "Rectangle"):
-                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
-                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt1 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt2 = Point(np.random.randint(border1), np.random.randint(border2))
                 rect = Rectangle(pt1, pt2)
 
                 rect.setOutline(list_of_outline_colors[i])
@@ -113,8 +142,8 @@ class MarkovArtist:
                 rect.draw(win)
 
             elif (working_shape == "Circle"):
-                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
-                radius = np.random.randint((BORDER1 - 1) / 2)
+                pt1 = Point(np.random.randint(border1), np.random.randint(border2))
+                radius = np.random.randint((border1 - 1) / 2)
                 circ = Circle(pt1, radius)
 
                 circ.setOutline(list_of_outline_colors[i])
@@ -123,8 +152,8 @@ class MarkovArtist:
                 circ.draw(win)
 
             elif (working_shape == "Oval"):
-                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
-                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt1 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt2 = Point(np.random.randint(border1), np.random.randint(border2))
                 oval = Oval(pt1, pt2)
 
                 oval.setOutline(list_of_outline_colors[i])
@@ -133,9 +162,9 @@ class MarkovArtist:
                 oval.draw(win)
             
             elif (working_shape == "Triangle"):
-                pt1 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
-                pt2 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
-                pt3 = Point(np.random.randint(BORDER1), np.random.randint(BORDER2))
+                pt1 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt2 = Point(np.random.randint(border1), np.random.randint(border2))
+                pt3 = Point(np.random.randint(border1), np.random.randint(border2))
                 vertices = [pt1, pt2, pt3]
                 triangle = Polygon(vertices)
 
@@ -151,9 +180,23 @@ class MarkovArtist:
 def main():
     artist = MarkovArtist(COLOR_MATRIX, SHAPE_MATRIX)
 
-    dict_of_shapes = artist.make_shapes(total_shapes=25)
+    line_break = "*" * 50
+    welcome = "Welcome to the Markov Artist Program"
 
-    artist.draw_masterpiece(dict_of_shapes)
+    print(line_break)
+    print(welcome)
+    print(line_break)
+
+    border1 = int(input("Choose a window width > "))
+    border2 = int(input("Choose a window height > "))
+
+    num_shapes = int(input("Choose number of shapes for masterpiece > "))
+    print(line_break)
+
+
+    print(dict_of_shapes)
+
+    artist.draw_masterpiece(dict_of_shapes, border1, border2)
 
 if __name__ == "__main__":
     main()
